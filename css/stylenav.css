@@ -9,6 +9,10 @@ body {
   color: #fff;
 }
 
+body a:hover{
+  color: #fff;
+  text-decoration: none;
+}
 
 /* NAV BAR */
 
@@ -287,6 +291,10 @@ body {
   letter-spacing: .4rem;
   padding: 1rem 1.5rem;
   font-weight: 400;
+}
+
+.favs--btn a:hover{
+  color: #fff;
 }
 
 .client {
