@@ -1,0 +1,53 @@
+<%- include('partials/_header') -%>
+<%- include('partials/_nav') -%>
+<div class="payment">
+  <div class="payment-left">
+    <span>informaci&oacute;n de env&iacute;o</span>
+    <form>
+      <input type="text" id="fname" name="firstname" placeholder="NOMBRE*">
+      <input type="text" id="lname" name="lastname" placeholder="APELLIDO*">
+      <input type="number" id="phone" name="phone" placeholder="TEL&Eacute;FONO*">
+      <input type="text" id="address" name="address" placeholder="DIRECCI&Oacute;N*">
+      <input type="number" id="pcode" name="pcode" placeholder="C&Oacute;DIGO POSTAL*">
+      <input type="text" id="state" name="state" placeholder="ESTADO*">
+      <input type="text" id="mun" name="mun" placeholder="MUNICIPIO*">
+    </form>
+  </div>
+  <hr>
+  <div class="payment-right">
+    <span>M&Eacute;TODO DE PAGO</span><br>
+    <input type="radio" id="paypal" name="payment" value="paypal">
+    <img src="img/paypal.png">
+    <input type="radio" id="oxxo" name="payment" value="oxxo">
+    <img src="img/oxxo.png">
+    <div class="amount"><span>RESUMEN DE COMPRA</span></div>
+    <h3>SUBTOTAL:</h3>
+    <h3 class="subtotal">$ <%= totalPrice%>.00 MXN</h3>
+    <h3>ENV&Iacute;O:</h3>
+    <h3 class="envio">$20.00 MXN</h3>
+    <h3>TOTAL:</h3>
+    <h3 class="total">$ <%= totalPrice+20%>.00 MXN</h3>
+    <form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post" target="_top">
+      <input type="hidden" name="cmd" value="_cart">
+      <input type="hidden" name="upload" value="1">
+      <input type="hidden" name="business" value="sb-47yyqa2167611@business.example.com">
+      <input type="hidden" name="lc" value="MX">
+      <% for(var i=0; i <products.length; i++){ %>
+        <input type="hidden" name="item_name_<%= i+1 %>" value="<%= products[i]['item'].productName%>">
+        <input type="hidden" name="item_number_<%=i+1%>" value="<%= products[i].quantity%>">
+        <input type="hidden" name="amount_<%=i+1%>" value="<%= products[i].price%>">
+
+      <%}%>
+      <input type="hidden" name="shipping_1" value="20.00">
+      <input type="hidden" name="currency_code" value="MXN">
+      <input type="hidden" name="button_subtype" value="services">
+      <input type="hidden" name="no_note" value="0">
+      <input type="hidden" name="return" value="http://localhost:3000/cart/response/success" />
+      <input type="hidden" name="cancel_return" value="http://localhost:3000/cart/response/cancel" />
+      <input type="hidden" name="bn" value="PP-BuyNowBF:btn_buynow_SM.gif:NonHostedGuest">
+      <input type="image" class="pay" src="../img/boton.png" width="100" border="0" name="submit" alt="PayPal, la forma más segura y rápida de pagar en línea.">
+      <img alt="" border="0" src="https://www.paypalobjects.com/es_XC/i/scr/pixel.gif" width="1" height="1">
+      </form>
+  </div>
+</div>
+<%- include('partials/_footer') -%>

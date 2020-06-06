@@ -1,0 +1,55 @@
+<%- include('partials/_header') -%>
+<%- include('partials/_nav') -%>
+<div class="cart">
+  <span><a href="products.html">< SEGUIR COMPRANDO</a></span>
+  <h3>CARRITO</h3>
+  <div class="cart-list">
+    <% if(!products[0]){ %>
+      <span class="text-muted font-weight-normal font-italic d-block text-center">No tienes articulos en tu carrito</span>
+      <% }else{%>
+      <table>
+        <thead>
+          <tr>
+            <th></th>
+            <th>ART&Iacute;CULO</th>
+            <th>PRECIO</th>
+            <th>CANTIDAD</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% for(var i=0; i <products.length; i++){ %>
+          <tr>
+            <th>
+              <img src="img/productos/<%=products[i]['item'].id%>.png" alt="" width="80">
+            </th>
+            <td><strong><%= products[i]['item'].productName%></strong></td>
+            <td><strong>$ <%= products[i].price%>.00 MXN</strong></td>
+            <td>
+              <a class="text-dark btn" href="/cart/update/<%=products[i]['item'].id%>/remove"><i class="fa fa-minus"></i></a>
+                <strong><%= products[i].quantity%></strong>
+              <a class="text-dark btn" href="/cart/update/<%=products[i]['item'].id%>/add"><i class="fa fa-plus"></i></a>
+            </td>
+            <td><a href="/cart/update/<%=products[i]['item'].id%>/delete" class="text-dark btn"><i class="fa fa-trash"></i></a></td>
+          </tr>
+          <% } %>
+        </tbody>
+      </table>
+      <% } %>
+    <hr class="cart-list-footer">
+  </div>
+  <div class="cart-bottom">
+    <div class="cart-bottom-left">
+      <h4>ACEPTAMOS:</h4>
+      <img src="img/paypal.png" class="pay-logos">
+      <img src="img/visa.png" class="pay-logos">
+      <img src="img/mastercard.png" class="pay-logos">
+      <img src="img/oxxo.png" class="pay-logos">
+    </div>
+    <div class="cart-bottom-right">
+      <h4>SUBTOTAL: $ <%= totalPrice%>.00 MXN</h4></h4>
+      <a href="payment.html">PROCEDER AL PAGO</a>
+    </div>
+  </div>
+</div>
+<%- include('partials/_footer') -%>
